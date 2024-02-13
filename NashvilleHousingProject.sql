@@ -22,15 +22,11 @@ Update NashvilleHousing
 Set SaleDateConverted = CONVERT(Date,SaleDate)
 
 
-
-
 -- Populate Property Address Data
 
 Select PropertyAddress
 From [Project 2].dbo.NashvilleHousing
---Where PropertyAddress is null
 order by ParcelID
-
 
 Select a.ParcelID, a.PropertyAddress, b.ParcelID, b.PropertyAddress, ISNULL(a.PropertyAddress,b.PropertyAddress)
 From [Project 2].dbo.NashvilleHousing a
@@ -49,12 +45,10 @@ and a.[UniqueID ]<>b.[UniqueID ]
 Where a.PropertyAddress is null
 
 
-
 -- Breaking out Address into Indivdaul Columns (Address, City, State)
 
 Select PropertyAddress
 From [Project 2].dbo.NashvilleHousing
-
 
 Select
 SUBSTRING(PropertyAddress, 1, CHARINDEX(',',PropertyAddress)-1) as Address
@@ -74,10 +68,6 @@ Update NashvilleHousing
 Set PropertySplitCity = SUBSTRING (PropertyAddress, CHARINDEX(',',PropertyAddress) + 1, LEN(PropertyAddress))
 
 
-Select *
-From [Project 2].dbo.NashvilleHousing
-
-
 Select OwnerAddress
 From [Project 2].dbo.NashvilleHousing
 
@@ -87,7 +77,6 @@ PARSENAME(Replace(OwnerAddress,',','.') , 3)
 ,PARSENAME(Replace(OwnerAddress,',','.') , 1)
 
 From [Project 2].dbo.NashvilleHousing
-
 
 
 Alter Table NashvilleHousing
